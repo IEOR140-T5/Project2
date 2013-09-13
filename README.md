@@ -42,7 +42,7 @@ Grid Navigation Report
                                     
     5.1.2: **Task Sequence and Repitition**: After running multiple tests with the oval track, we were able to determine correct values while observing how our rover reacted to changes in code.     
     
-6. **Software Design**: 
+6. **Software Design**
 
   6.1. **Sources of Programming Ideas**: we use the while loop to keep calling the method trackLine() to determine the center of the line and to steer at a desired turn rate in order to keep on track.
                                          Beside, we count the number of black marker that the robot has passed, the travel a small distance in order for the robot for not detect the black market anymore.

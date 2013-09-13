@@ -7,12 +7,14 @@ import lejos.robotics.navigation.DifferentialPilot;
 /**
  * Follow the oval blue line
  * 
- * @author Phuoc Nguyen
+ * @author Phuoc Nguyen, Khoa Tran
  */
 public class Milestone1 {
-
-	Tracker tracker;
-
+	/**
+	 * Testing code for Milestone 1
+	 * 
+	 * @param args - command line arguments     
+	 */
 	public static void main(String[] args) {
 		float wheelDiameter = 5.38f;
 		float trackWidth = 11.2f;
@@ -21,25 +23,18 @@ public class Milestone1 {
 		LightSensor left = new LightSensor(SensorPort.S1);
 		LightSensor right = new LightSensor(SensorPort.S4);
 		Tracker tracker = new Tracker(pilot, left, right);
-		Milestone1 robot = new Milestone1(tracker);
-		robot.go();
+		go(tracker);
 	}
 
-	public Milestone1(Tracker tracker) {
-		this.tracker = tracker;
-	}
-
-	/*
-	 * executes tasks for this milestone
+	/**
+	 * Executes tasks for this milestone
 	 */
-	public void go() {
+	public static void go(Tracker tracker) {
 
 		// Setup the calibration
 		tracker.calibrate();
-
 		int _turnDirection = 1;
 
-		// Main Part
 		for (int count = 0; count < 16; count++) {
 			// each loop take control of half the track
 			while (true) {
@@ -59,7 +54,6 @@ public class Milestone1 {
 		// Extra credit part
 		Button.waitForAnyPress();
 		for (int count = 0; count < 6; count++) {
-
 			while (true) {
 				if ((tracker.getlval() < -10) | (tracker.getrval() < -10)) {
 					// black marker detected
@@ -76,7 +70,6 @@ public class Milestone1 {
 				tracker.turn(-_turnDirection);
 			}
 			tracker.sleepRobot(850);
-
 		}
 	}
 }

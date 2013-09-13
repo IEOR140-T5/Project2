@@ -33,9 +33,13 @@ public class Tracker {
 
 	/**
 	 * Constructor specifies which sensor ports are left and right
-	 * @param thePilot - pilot for the tracker
-	 * @param leftEye - left sensor
-	 * @param rightEye - right sensor
+	 * 
+	 * @param thePilot
+	 *            - pilot for the tracker
+	 * @param leftEye
+	 *            - left sensor
+	 * @param rightEye
+	 *            - right sensor
 	 */
 	public Tracker(DifferentialPilot thePilot, LightSensor leftEye,
 			LightSensor rightEye) {
@@ -104,7 +108,8 @@ public class Tracker {
 	public void sleepRobot(int ms) {
 		try {
 			Thread.sleep(ms);
-		} catch (InterruptedException e) {}
+		} catch (InterruptedException e) {
+		}
 	}
 
 	/**
@@ -135,8 +140,7 @@ public class Tracker {
 		System.out.println("Calibrate Tracker");
 
 		for (byte i = 0; i < 3; i++) {
-			while (0 == Button.readButtons())// wait for press
-			{
+			while (0 == Button.readButtons()) { // wait for press
 				LCD.drawInt(leftEye.getLightValue(), 4, 6, 1 + i);
 				LCD.drawInt(rightEye.getLightValue(), 4, 12, 1 + i);
 				if (i == 0) {
@@ -156,9 +160,9 @@ public class Tracker {
 			while (0 < Button.readButtons()) {
 				Thread.yield(); // button released
 			}
-
 		}
 
+		// reflect real-time CLDistance bases on lval, rval
 		while (0 == Button.readButtons()) {
 			int lval = leftEye.getLightValue();
 			int rval = rightEye.getLightValue();

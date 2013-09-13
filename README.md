@@ -44,9 +44,13 @@ Grid Navigation Report
   6.1. **Sources of Programming Ideas**: we use the while loop to keep calling the method trackLine() to determine the center of the line and to steer at a desired turn rate in order to keep on track.
                                          Beside, we count the number of black marker that the robot has passed, the travel a small distance in order for the robot for not detect the black market anymore.
                                          The robot will stop or turn when it reaches a specific numbers of black market detections.
+                                         
   6.2. **Class Responsibilities**: The class Tracker take responsiblity for the calibration setup and basic control of the robot. For Milestone 2, the only method we implement is go() which is detailed above.
+  
   6.3. **Other classes used**: None
+  
   6.4. **Explain how submethods work**: It help the tracker and the robot to stop, delay, or turn at a desired angle.
+  
   6.5. **Link to Documentation**: None
   
 7. **Most Interesting/Challenging Parts**: We found that the most interesting portion of the project was implementing the light sensors. The light sensors, in our opinion, were the most intriguing 

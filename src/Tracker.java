@@ -124,6 +124,20 @@ public class Tracker {
 	public int getrval() {
 		return this.rightEye.getLightValue();
 	}
+	
+	/**
+	 * Decide whether the robot is moving or not
+	 * @param lval
+	 * @param rval
+	 * @return
+	 */
+	public boolean isMoving(int lval, int rval){
+		if ((lval < -10) | (rval < -10)){
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * calibrates for line first, then background, then marker with left sensor.

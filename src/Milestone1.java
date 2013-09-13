@@ -1,4 +1,3 @@
-
 import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
@@ -7,6 +6,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 
 /**
  * Follow the oval blue line
+ * 
  * @author Phuoc Nguyen
  */
 public class Milestone1 {
@@ -14,19 +14,21 @@ public class Milestone1 {
 	Tracker tracker;
 
 	public static void main(String[] args) {
-		float wheelDiameter =  5.38f;
+		float wheelDiameter = 5.38f;
 		float trackWidth = 11.2f;
-		DifferentialPilot pilot = new DifferentialPilot(wheelDiameter,trackWidth, Motor.A, Motor.C);
+		DifferentialPilot pilot = new DifferentialPilot(wheelDiameter,
+				trackWidth, Motor.A, Motor.C);
 		LightSensor left = new LightSensor(SensorPort.S1);
 		LightSensor right = new LightSensor(SensorPort.S4);
-		Tracker tracker = new Tracker(pilot, left,right);
-		Milestone1 robot = new Milestone1(tracker);	      
+		Tracker tracker = new Tracker(pilot, left, right);
+		Milestone1 robot = new Milestone1(tracker);
 		robot.go();
 	}
 
-	public Milestone1 (Tracker tracker) {
-		this.tracker = tracker;     
+	public Milestone1(Tracker tracker) {
+		this.tracker = tracker;
 	}
+
 	/*
 	 * executes tasks for this milestone
 	 */
@@ -34,9 +36,9 @@ public class Milestone1 {
 
 		// Setup the calibration
 		tracker.calibrate();
-		
+
 		int _turnDirection = 1;
-		
+
 		// Main Part
 		for (int count = 0; count < 16; count++) {
 			// each loop take control of half the track
@@ -53,8 +55,6 @@ public class Milestone1 {
 				tracker.turn(_turnDirection * 2);
 			}
 		}
-		
-		
 
 		// Extra credit part
 		Button.waitForAnyPress();

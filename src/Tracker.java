@@ -1,7 +1,6 @@
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.util.Delay;
 import lejos.nxt.*;
-
 import java.io.*;
 
 /**
@@ -13,10 +12,9 @@ import java.io.*;
  * Control Algorithm: proportional control. estimate distance from centerline<br>
  * Calibrates both sensors to line, background Updated 9/10/2007 NXT hardware
  * 
- * @author Roger Glassey, Phuoc Nguyen, Khoa Tran, Trevon
+ * @author Roger Glassey, Phuoc Nguyen, Khoa Tran, Trevor Davenport
  */
-public class Tracker
-{
+public class Tracker {
 
 	/**
 	 * controls the motors
@@ -32,15 +30,13 @@ public class Tracker
 	private LightSensor rightEye;
 
 	private int _turnDirection = 1;
-	
 
 	/**
 	 * constructor - specifies which sensor ports are left and right
 	 */
 	// public Tracker( Pilot thePilot,SensorPort leftI,SensorPort rightI)
 	public Tracker(DifferentialPilot thePilot, LightSensor leftEye,
-			LightSensor rightEye)
-	{
+			LightSensor rightEye) {
 		pilot = thePilot;
 		pilot.setTravelSpeed(20);
 		pilot.setRotateSpeed(180);
@@ -57,16 +53,15 @@ public class Tracker
 	 * uses CLdistance(), pilot.steer() loop execution about 65 times per second
 	 * in 1 sec.<br>
 	 */
-	public void trackLine()
-	{
+	public void trackLine() {
 		int error = 0;// approximate offset from center of line
-						
+
 		int lval = leftEye.getLightValue();
 		int rval = rightEye.getLightValue();
 		error = CLDistance(lval, rval);
-		int control = 0; // do better 
-		
-		pilot.steer(error*1.05);
+		int control = 0; // do better
+
+		pilot.steer(error * 1.05);
 	}
 
 	/**
@@ -79,95 +74,94 @@ public class Tracker
 	 *            light reading
 	 * @return distance
 	 */
-	int CLDistance(int left, int right)
-	{
-		
+	int CLDistance(int left, int right) {
+
 		return (left - right);
 	}
 
-	/** stop the robot
-	** @param: void
-	**/
-	public void stop()
-	{
+	/**
+	 * stop the robot
+	 ** 
+	 * @param: void
+	 **/
+	public void stop() {
 		pilot.stop();
 	}
 
-	/** Turn the Robot at direction * 90
+	/**
+	 * Turn the Robot at direction * 90
+	 * 
 	 * @param: multiply of 90
 	 */
-	public void turn(double direction){
-		pilot.rotate(direction*90);
+	public void turn(double direction) {
+		pilot.rotate(direction * 90);
 	}
-	
-	/** Sleep the robot by delaying the while loop for a ms = milisecond
+
+	/**
+	 * Sleep the robot by delaying the while loop for a ms = milisecond
+	 * 
 	 * @param: miliseconds to sleep
-	 */	
-	public void sleepRobot( int ms){
-		try{
+	 */
+	public void sleepRobot(int ms) {
+		try {
 			Thread.sleep(ms);
-			}
-			catch(InterruptedException e){}		
+		} catch (InterruptedException e) {
+		}
 	}
-	
-	/** get value of leftEye.getLightValue()
+
+	/**
+	 * get value of leftEye.getLightValue()
 	 * 
 	 * @return leftEye.getLightValue()
 	 */
-	public int getlval(){
+	public int getlval() {
 		return this.leftEye.getLightValue();
 	}
-	
-	/** get value of rightEye.getLightValue()
+
+	/**
+	 * get value of rightEye.getLightValue()
 	 * 
 	 * @return rightEye.getLightValue()
 	 */
-	public int getrval(){
+	public int getrval() {
 		return this.rightEye.getLightValue();
 	}
-	
+
 	/**
 	 * calibrates for line first, then background, then marker with left sensor.
 	 * displays light sensor readings on LCD (percent)<br>
 	 * Then displays left sensor (scaled value). Move left sensor over marker,
 	 * press Enter to set marker value to sensorRead()/2
 	 */
-	public void calibrate()
-	{
+	public void calibrate() {
 		System.out.println("Calibrate Tracker");
 
-		for (byte i = 0; i < 3; i++)
-		{
+		for (byte i = 0; i < 3; i++) {
 			while (0 == Button.readButtons())// wait for press
 			{
 				LCD.drawInt(leftEye.getLightValue(), 4, 6, 1 + i);
 				LCD.drawInt(rightEye.getLightValue(), 4, 12, 1 + i);
-				if (i == 0)
-				{
+				if (i == 0) {
 					LCD.drawString("LOW", 0, 1 + i);
-				} else if (i == 1)
-				{
+				} else if (i == 1) {
 					LCD.drawString("HIGH", 0, 1 + i);
 				}
 			}
 			Sound.playTone(1000 + 200 * i, 100);
-			if (i == 0)
-			{
+			if (i == 0) {
 				leftEye.calibrateLow();
 				rightEye.calibrateLow();
-			} else if (i == 1)
-			{
+			} else if (i == 1) {
 				rightEye.calibrateHigh();
 				leftEye.calibrateHigh();
 			}
-			while (0 < Button.readButtons())
-			{
+			while (0 < Button.readButtons()) {
 				Thread.yield();// button released
 			}
 
 		}
 
-		while (0 == Button.readButtons()){
+		while (0 == Button.readButtons()) {
 			int lval = leftEye.getLightValue();
 			int rval = rightEye.getLightValue();
 			LCD.drawInt(lval, 4, 0, 5);

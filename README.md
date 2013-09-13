@@ -5,11 +5,11 @@ Grid Navigation Report
 
 1.2 **Brief Description**: Khoa and Phuoc worked collectively to develop the java coding while Corey and Trevor collected data and helped implement algorithm design. 
 
-1.3 **Approximate Number of Hours**: 10-15 Hours.
+1.3 **Approximate Number of Hours**: 20-25 Hours.
 
-1.4 **Project Repository Location**: https://github.com/kqdtran/IEOR140-T5
+1.4 **Project Repository Location**: https://github.com/IEOR140-T5/Project2NXT/
 
-2. **Performance Specifications We Met**: Both Extra Credit and Basic.
+2. **Performance Specifications We Met**: Both Basic and Extra Credit.
 
 3. **Hardware Design**: Our hardware design was the exact same implementation as last project, with the exception of adding and calibrating the light sensors.
 
@@ -21,7 +21,7 @@ Grid Navigation Report
   
   4.3. **Calculations and Analysis**: After some trial and error with control values, we found that the value 1.05 for the turnrate was superior in allowing our rover to remain steady.
   
-  4.4. **Implementations in Code**: As stated above, we used the control variable and set it to 1.05. (See Code).
+  4.4. **Implementations in Code**: As stated above, we used the control variable and set it to 1.05.
   
 5. **Problem Analysis**
 
@@ -54,33 +54,26 @@ Grid Navigation Report
   
   6.4. **Explain how submethods work**: It help the tracker and the robot to stop, delay, or turn at a desired angle.
   
-  6.5. **Link to Documentation**: None
+  6.5. **Link to Documentation**: Team5/Project2/doc
   
 7. **Most Interesting/Challenging Parts**: We found that the most interesting portion of the project was implementing the light sensors. The light sensors, in our opinion, were the most intriguing 
                                            aspect of the project. After figuring out how to correctly calibrate their values, the coding and algorithms came next. We found that developing the algorithm 
                                            and implementing code was the most difficult portion of this project.
 
-8. **Link to source code**: Team5/Project2-Milestone1/
-
-                            Team5/Project2-Milestone2/
+8. **Link to source code**: Team5/Project2/
 
 
 ## Milestone 1
 
-In this milestone, we tried to calculate the center of the line, the turn rate to make the robot not losing its track.
-
-For the main part, the robot will trace the line oval track 4 times, turn back and do more 4 rounds.
-
+In this milestone, we tried to calculate the center of the line, the turn rate to make the robot not losing its track. 
+For the main part, the robot will trace the line oval track 4 times, turn back and do more 4 rounds. 
 For the extra credit part, it will trace the oval track but in a way of 8.
 
 
 
 ## Milestone 2
 
-In Milestone 2, our group used a method named go(). This method begins by calibrating the tracker and then runs our algorithm designed by Peter. Next,
-
-the method is seperated into four seperate for loops (2 rounds of left and right turns and next uses coordinate mappings). Based on our light sensor data,
-
-we deduced that if the left or right values ever read less than -10, we know that the rover has come across the black marking. We than pilot the rover, put it to sleep,
-
+In Milestone 2, our group used a method named go(). This method begins by calibrating the tracker and then runs our algorithm designed by Peter. 
+Next, the method is seperated into four seperate for loops (2 rounds of left and right turns and next uses coordinate mappings). 
+Based on our light sensor data,we deduced that if the left or right values ever read less than -10, we know that the rover has come across the black marking. We than pilot the rover, put it to sleep, 
 and as our iterations for each for loop are odd, the robot will turn, sleep, and then continue to trackLine(). This same basic algorithm is implemented throughout our go() method. 

@@ -1,7 +1,7 @@
 Grid Navigation Report
 ======================
 
-1.1 **Team Member**: Trevor Davenport, Phuoc Nguyen, Khoa Tran, Corey Short  
+1.1 **Team Members**: Trevor Davenport, Phuoc Nguyen, Khoa Tran, Corey Short  
 
 1.2 **Brief Description**: Khoa and Phuoc worked collectively to develop the java coding while Corey and Trevor collected data and helped implement algorithm design. 
 

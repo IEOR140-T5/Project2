@@ -42,8 +42,7 @@ public class Milestone2 {
 	public void go() {
 
 		// Setup the calibration
-		tracker.calibrate();
-		
+		tracker.calibrate();	
 		int _turnDirection = 1;
 
 		// 2 rounds left turns
@@ -104,7 +103,7 @@ public class Milestone2 {
 			}
 		}		
 		
-		// 2  Shuttle between (0,2 and (0,0) 
+		// 2 Shuttle between (0,2) and (0,0) 
 		tracker.turn(_turnDirection * 2 * -1);
 		for (int count = 0; count < 8; count++) {
 			while (true){
@@ -119,11 +118,8 @@ public class Milestone2 {
 					break;
 				} else {
 					tracker.trackLine();
-				}
-				
+				}	
 			}
 		}		
-		
-	
 	}
 }

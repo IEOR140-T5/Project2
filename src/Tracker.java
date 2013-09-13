@@ -154,7 +154,7 @@ public class Tracker {
 				leftEye.calibrateHigh();
 			}
 			while (0 < Button.readButtons()) {
-				Thread.yield();// button released
+				Thread.yield(); // button released
 			}
 
 		}

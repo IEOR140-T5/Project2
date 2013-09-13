@@ -44,6 +44,7 @@ public class Milestone2 {
 		// Setup the calibration
 		tracker.calibrate();
 		
+		// 1: right, -1: left - Multiply by 90
 		int _turnDirection = 1;
 
 		// 2 rounds left turns

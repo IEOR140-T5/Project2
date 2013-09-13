@@ -158,7 +158,8 @@ public class Tracker {
 			}
 
 		}
-
+		
+		// reflect real-time CLDistance bases on lval, rval
 		while (0 == Button.readButtons()) {
 			int lval = leftEye.getLightValue();
 			int rval = rightEye.getLightValue();

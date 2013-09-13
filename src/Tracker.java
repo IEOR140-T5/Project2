@@ -32,9 +32,11 @@ public class Tracker {
 	private int _turnDirection = 1;
 
 	/**
-	 * constructor - specifies which sensor ports are left and right
+	 * Constructor specifies which sensor ports are left and right
+	 * @param thePilot - pilot for the tracker
+	 * @param leftEye - left sensor
+	 * @param rightEye - right sensor
 	 */
-	// public Tracker( Pilot thePilot,SensorPort leftI,SensorPort rightI)
 	public Tracker(DifferentialPilot thePilot, LightSensor leftEye,
 			LightSensor rightEye) {
 		pilot = thePilot;
@@ -55,12 +57,10 @@ public class Tracker {
 	 */
 	public void trackLine() {
 		int error = 0;// approximate offset from center of line
-
 		int lval = leftEye.getLightValue();
 		int rval = rightEye.getLightValue();
 		error = CLDistance(lval, rval);
 		int control = 0; // do better
-
 		pilot.steer(error * 1.05);
 	}
 
@@ -75,7 +75,6 @@ public class Tracker {
 	 * @return distance
 	 */
 	int CLDistance(int left, int right) {
-
 		return (left - right);
 	}
 
@@ -91,7 +90,7 @@ public class Tracker {
 	/**
 	 * Turn the Robot at direction * 90
 	 * 
-	 * @param: multiply of 90
+	 * @param: multiples of 90
 	 */
 	public void turn(double direction) {
 		pilot.rotate(direction * 90);
@@ -105,8 +104,7 @@ public class Tracker {
 	public void sleepRobot(int ms) {
 		try {
 			Thread.sleep(ms);
-		} catch (InterruptedException e) {
-		}
+		} catch (InterruptedException e) {}
 	}
 
 	/**

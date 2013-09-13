@@ -16,8 +16,11 @@ Grid Navigation Report
 4. **Experimental Work**: We have done much experimental work, for example, we calculated the TurnRate and the center of the line.
 
   4.1. **Experiment Description and Purpose**: The purpose of this project was to demonstrate our usage of the leJOS java doc along with modifying the engineering behind our Rover.
+  
   4.2. **Listing of Data**: Attached within our repository are the three data graphs we used to calibrate our Rover's light senors.
+  
   4.3. **Calculations and Analysis**: After some trial and error with control values, we found that the value 1.05 for the turnrate was superior in allowing our rover to remain steady.
+  
   4.4. **Implementations in Code**: As stated above, we used the control variable and set it to 1.05. (See Code).
   
 5. **Problem Analysis**

@@ -1,6 +1,7 @@
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.util.Delay;
 import lejos.nxt.*;
+
 import java.io.*;
 
 /**
@@ -30,6 +31,8 @@ public class Tracker {
 	private LightSensor rightEye;
 
 	private int _turnDirection = 1;
+	
+	private int markerValue = -10;
 
 	/**
 	 * Constructor specifies which sensor ports are left and right
@@ -65,7 +68,30 @@ public class Tracker {
 		int rval = rightEye.getLightValue();
 		error = CLDistance(lval, rval);
 		int control = 0; // do better
-		pilot.steer(error * 1.05);
+		boolean atMarker = false;
+		
+		while (( !atMarker )){
+			lval = leftEye.getLightValue();
+			rval = rightEye.getLightValue();
+			LCD.drawInt(lval, 4, 0, 5);
+			LCD.drawInt(rval, 4, 4, 5);
+			LCD.drawInt(CLDistance(lval, rval), 4, 12, 5);
+			LCD.refresh();
+			
+			if ((lval < markerValue ) | (rval < markerValue)) atMarker = true;
+			
+			if ( !atMarker ){
+				error = CLDistance(lval, rval);
+				pilot.steer(error * 1.05);
+			} else {
+				Sound.playTone(1000, 100);		
+				pilot.travel(7, true);
+				Delay.msDelay(500);
+			}
+			
+			
+		}
+
 	}
 
 	/**
@@ -137,11 +163,7 @@ public class Tracker {
 	 * @return
 	 */
 	public boolean isMoving(int lval, int rval){
-		if ((lval < -10) | (rval < -10)){
-			return true;
-		} else {
-			return false;
-		}
+		return pilot.isMoving();
 	}
 
 	/**
@@ -164,13 +186,18 @@ public class Tracker {
 				}
 			}
 			Sound.playTone(1000 + 200 * i, 100);
-			if (i == 0) {
-				leftEye.calibrateLow();
-				rightEye.calibrateLow();
-			} else if (i == 1) {
-				rightEye.calibrateHigh();
-				leftEye.calibrateHigh();
-			}
+	        if (i == 0)
+	        {
+	          leftEye.calibrateLow();
+	          rightEye.calibrateLow();
+	        } else if (i == 1)
+	        {
+	          rightEye.calibrateHigh();
+	          leftEye.calibrateHigh();
+	        } else
+	        {
+	          //markerValue = leftEye.getLightValue() / 2;
+	        }
 			while (0 < Button.readButtons()) {
 				Thread.yield(); // button released
 			}

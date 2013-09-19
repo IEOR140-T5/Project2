@@ -31,7 +31,7 @@ public class Tracker {
 	private LightSensor rightEye;
 
 	private int _turnDirection = 1;
-	
+
 	private int markerValue = -10;
 
 	/**
@@ -69,27 +69,26 @@ public class Tracker {
 		error = CLDistance(lval, rval);
 		int control = 0; // do better
 		boolean atMarker = false;
-		
-		while (( !atMarker )){
+
+		while (!atMarker) {
 			lval = leftEye.getLightValue();
 			rval = rightEye.getLightValue();
 			LCD.drawInt(lval, 4, 0, 5);
 			LCD.drawInt(rval, 4, 4, 5);
 			LCD.drawInt(CLDistance(lval, rval), 4, 12, 5);
 			LCD.refresh();
-			
-			if ((lval < markerValue ) | (rval < markerValue)) atMarker = true;
-			
-			if ( !atMarker ){
+
+			if ((lval < markerValue) | (rval < markerValue))
+				atMarker = true;
+
+			if (!atMarker) {
 				error = CLDistance(lval, rval);
 				pilot.steer(error * 1.05);
 			} else {
-				Sound.playTone(1000, 100);		
+				Sound.playTone(1000, 100);
 				pilot.travel(7, true);
 				Delay.msDelay(500);
 			}
-			
-			
 		}
 
 	}
@@ -155,14 +154,15 @@ public class Tracker {
 	public int getrval() {
 		return this.rightEye.getLightValue();
 	}
-	
+
 	/**
 	 * Decide whether the robot is moving or not
+	 * 
 	 * @param lval
 	 * @param rval
 	 * @return
 	 */
-	public boolean isMoving(int lval, int rval){
+	public boolean isMoving() {
 		return pilot.isMoving();
 	}
 
@@ -186,18 +186,15 @@ public class Tracker {
 				}
 			}
 			Sound.playTone(1000 + 200 * i, 100);
-	        if (i == 0)
-	        {
-	          leftEye.calibrateLow();
-	          rightEye.calibrateLow();
-	        } else if (i == 1)
-	        {
-	          rightEye.calibrateHigh();
-	          leftEye.calibrateHigh();
-	        } else
-	        {
-	          //markerValue = leftEye.getLightValue() / 2;
-	        }
+			if (i == 0) {
+				leftEye.calibrateLow();
+				rightEye.calibrateLow();
+			} else if (i == 1) {
+				rightEye.calibrateHigh();
+				leftEye.calibrateHigh();
+			} else {
+				// markerValue = leftEye.getLightValue() / 2;
+			}
 			while (0 < Button.readButtons()) {
 				Thread.yield(); // button released
 			}

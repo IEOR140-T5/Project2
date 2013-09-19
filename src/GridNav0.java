@@ -1,4 +1,5 @@
 import lejos.nxt.LCD;
+import lejos.nxt.Motor;
 import lejos.nxt.Sound;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
@@ -23,7 +24,7 @@ public class GridNav0 {
 	/**
 	 * setBy getDestination(); used by toDestination, newHeading()
 	 */
-	int[] _destination = new int[2];// where am I going?
+	int[] _destination = new int[2]; // where am I going?
 	/**
 	 * the direction the robot is facing updated by toDestination() used by
 	 * toDestination and newHeading()
@@ -92,7 +93,7 @@ public class GridNav0 {
 	 * sets _destination uses ButtonCounter
 	 */
 	public void getDestination() {
-
+		LCD.clear();
 		bc.count("Dest x,y");
 		_destination[0] = bc.getLeftCount();
 		_destination[1] = bc.getRightCount();
@@ -114,7 +115,10 @@ public class GridNav0 {
 	}
 
 	public static void main(String[] args) {
-		DifferentialPilot pilot = PilotFactory.makeMetricGridbot();
+		float wheelDiameter = 5.38f;
+		float trackWidth = 11.2f;
+		DifferentialPilot pilot = new DifferentialPilot(wheelDiameter,
+				trackWidth, Motor.A, Motor.C);
 		LightSensor left = new LightSensor(SensorPort.S1);
 		LightSensor right = new LightSensor(SensorPort.S4);
 		Tracker tracker = new Tracker(pilot, left, right);

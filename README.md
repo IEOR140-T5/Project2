@@ -77,3 +77,12 @@ In Milestone 2, our group used a method named go(). This method begins by calibr
 Next, the method is seperated into four seperate for loops (2 rounds of left and right turns and next uses coordinate mappings). 
 Based on our light sensor data,we deduced that if the left or right values ever read less than -10, we know that the rover has come across the black marking. We than pilot the rover, put it to sleep, 
 and as our iterations for each for loop are odd, the robot will turn, sleep, and then continue to trackLine(). This same basic algorithm is implemented throughout our go() method. 
+
+## Milestone 3
+
+We found Milestone 3 to be the most difficult part of the project. For some odd reason, our group kept getting some OutOfBoundsExceptions. After some meticulous skimming of our code 
+we found the error. The error involved our _heading variable becoming less than 0, i.e. -1. This caused our Array to index into negative numbers causing the above exception. We chose to represent
+points by using two seperate two element arrays ( _destination and _position ). Next, our _heading variable is used to determine the direction the robot is facing. The entire workload of this milestone is
+completed in the method toDestination(). After overriding the equals method to determine if two points have the exact same coordinates, we implemented our algorithm to navigate to a specificed set of coordinates.
+Part of our algorithm is done in the method newHeading(). newHeading returns a direction between [0 .. 3]. We accomplish this by using the built-in math class method known as signum. Signum will return 0, 1, or -1 
+according to its input. Once newHeading returns the direction, we implement the correct turnRate. 

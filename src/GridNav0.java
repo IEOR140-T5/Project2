@@ -44,44 +44,34 @@ public class GridNav0 {
 	 * _destination calls nextHeading();
 	 */
 	void toDestination() {
-	//	try {
-			LCD.clearDisplay();
-			int turnAngle;
-			int nextHeading;
-			int flag = 0;
-			while (!equals(_position, _destination)) {
-				nextHeading = newHeading();
-				turnAngle = nextHeading - _heading;
-				if (turnAngle < -2) {
-					turnAngle += 4;
+		LCD.clearDisplay();
+		int turnAngle;
+		int nextHeading;
+		while (!equals(_position, _destination)) {
+			nextHeading = newHeading();
+			turnAngle = nextHeading - _heading;
+			
+			if (turnAngle != 0) {
+				if (!tracker.isMoving()) {
+					tracker.turn(-turnAngle);
 				}
-				if (turnAngle > 2) {
-					turnAngle -= 4;
+				while (tracker.isMoving()) {
+					tracker.turn(-turnAngle);
 				}
-				if (turnAngle != 0) {
-					if (!tracker.isMoving()) {
-						tracker.turn(-turnAngle);
-					}
-					while (tracker.isMoving()) {
-						tracker.turn(-turnAngle);
-					} 
-					_heading = nextHeading; // return between within 0,3
-				}
-				
-				tracker.trackLine();
-				if (_heading < 2) {
-					_position[_heading]++; // increase in x or y
-				} else {
-					_position[_heading - 2]--;
-				}
-				System.out.println("H " + _heading + " X " + _position[0] + " Y "
-						+ _position[1]);
-				Sound.playTone(800 + 50 * _position[0], 100);
-				Sound.playTone(800 + 50 * _position[1], 100);
+				_heading = nextHeading; // return between within 0,3
 			}
-	//	} catch (Exception e) {
-		//	LCD.drawString(e.toString(), 0, 0);
-		//}
+
+			tracker.trackLine();
+			if (_heading < 2) {
+				_position[_heading]++; // increase in x or y
+			} else {
+				_position[_heading - 2]--;
+			}
+			System.out.println("H " + _heading + " X " + _position[0] + " Y "
+					+ _position[1]);
+			Sound.playTone(800 + 50 * _position[0], 100);
+			Sound.playTone(800 + 50 * _position[1], 100);
+		}
 	}
 
 	/**
@@ -89,13 +79,20 @@ public class GridNav0 {
 	 * X direction first.
 	 */
 	private int newHeading() {
-		int heading = (int) Math.signum(_destination[0] - _position[0]);
-		if (heading == 0) { // move in y direction
-			heading = (int) Math.signum(_destination[1] - _position[1]);
-		} else {
-			heading = 1 - heading;
+		int xDir = _destination[0] - _position[0];
+		if (xDir > 0) {
+			return 0;
+		} else if (xDir < 0) {
+			return 2;
+		} else { // move in y direction
+			int yDir = _destination[1] - _position[1];
+			if (yDir > 0) {
+				return 1;
+			} else if (yDir < 0) {
+				return 3;
+			}
 		}
-		return heading;
+		return 0;
 	}
 
 	/**
@@ -108,6 +105,12 @@ public class GridNav0 {
 		_destination[1] = bc.getRightCount();
 	}
 
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	boolean equals(int[] a, int[] b) {
 		return a[0] == b[0] && a[1] == b[1];
 	}

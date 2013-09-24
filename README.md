@@ -86,3 +86,6 @@ points by using two seperate two element arrays ( _destination and _position ). 
 completed in the method toDestination(). After overriding the equals method to determine if two points have the exact same coordinates, we implemented our algorithm to navigate to a specificed set of coordinates.
 Part of our algorithm is done in the method newHeading(). newHeading returns a direction between [0 .. 3]. We chose to represent our coordinates as numbers between [0..3] inclusive. 
 Once newHeading returns the direction, we implement the correct turnRate. 
+
+*** Our file was downloaded and pulled from the Steam/IEOR140 directory in the beginning of the semester, we were unaware that it was a portion of the previous semesters solution file.
+   With that being said, a good portion of the code is modified and implemented in our own logic and algorithms. ***

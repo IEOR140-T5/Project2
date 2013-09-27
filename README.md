@@ -84,5 +84,8 @@ We found Milestone 3 to be the most difficult part of the project. For some odd 
 we found the error. The error involved our _heading variable becoming less than 0, i.e. -1. This caused our Array to index into negative numbers causing the above exception. We chose to represent
 points by using two seperate two element arrays ( _destination and _position ). Next, our _heading variable is used to determine the direction the robot is facing. The entire workload of this milestone is
 completed in the method toDestination(). After overriding the equals method to determine if two points have the exact same coordinates, we implemented our algorithm to navigate to a specificed set of coordinates.
-Part of our algorithm is done in the method newHeading(). newHeading returns a direction between [0 .. 3]. We accomplish this by using the built-in math class method known as signum. Signum will return 0, 1, or -1 
-according to its input. Once newHeading returns the direction, we implement the correct turnRate. 
+Part of our algorithm is done in the method newHeading(). newHeading returns a direction between [0 .. 3]. We chose to represent our coordinates as numbers between [0..3] inclusive. 
+Once newHeading returns the direction, we implement the correct turnRate. 
+
+*** Our file was downloaded and pulled from the Steam/IEOR140 directory in the beginning of the semester, we were unaware that it was a portion of the previous semesters solution file.
+   With that being said, a good portion of the code is modified and implemented in our own logic and algorithms. ***

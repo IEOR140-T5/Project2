@@ -1,3 +1,5 @@
+package milestone1;
+import tracker.Tracker;
 import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;

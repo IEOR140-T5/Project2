@@ -1,3 +1,5 @@
+package milestone3;
+import tracker.Tracker;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.nxt.Sound;
@@ -101,8 +103,13 @@ public class GridNav0 {
 	public void getDestination() {
 		LCD.clear();
 		bc.count("Dest x,y");
-		_destination[0] = bc.getLeftCount();
-		_destination[1] = bc.getRightCount();
+		int x = bc.getLeftCount();
+		int y = bc.getRightCount();
+		
+		if (x >= 0 && x <= 6 && y >= 0 && y <= 8) {
+			_destination[0] = x;
+			_destination[1] = y;
+		}
 	}
 
 	/**

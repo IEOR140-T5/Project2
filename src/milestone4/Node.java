@@ -13,15 +13,15 @@ public class Node {
 	 */
 	public static final int BIG = 99; // infinity in the grid
 	
-	private int _x, _y;             // row and column index of my location in grid
-	private int _distance;          // shortest distance from destination set by reset(), newDistance()
-	Node[] neighbor = new Node[4];  // array of neighboring nodes, in order of direction
-	private boolean blocked = false;// is it blocked?
+	private int _x, _y;              // row and column index of my location in grid
+	private int _distance;           // shortest distance from destination set by reset(), newDistance()
+	Node[] neighbor = new Node[4];   // array of neighboring nodes, in order of direction counterclockwise
+	private boolean blocked = false; // is it blocked?
 
 	/**
 	 * Allocates a new Node at location x,y in the Grid
-	 * @param x
-	 * @param y
+	 * @param x - x coordinate of new node
+	 * @param y - y coordinate of new node
 	 */
 	public Node(int x, int y) {
 		_x = x;
@@ -61,9 +61,8 @@ public class Node {
 	}
 
 	/**
-	 * updates distance if parameter d is smaller than current value, in which
-	 * case return true <br>
-	 * indicating node should be added to list.
+	 * updates distance if parameter d is smaller than current value
+	 * @return true if new distance is smaller than old distance, and node is unblocked
 	 */
 	public boolean newDistance(int d) {
 		if (blocked) {
@@ -77,7 +76,7 @@ public class Node {
 	}
 
 	/**
-	 * node is now blocked; distance to destination is BIG
+	 * Blocks node, reset distance to BIG
 	 */
 	public void blocked() {
 		blocked = true;
@@ -92,7 +91,7 @@ public class Node {
 	}
 
 	/**
-	 * resets blocked flag
+	 * Unblocks node by setting the flag to false
 	 */
 	public void unblocked() {
 		blocked = false;

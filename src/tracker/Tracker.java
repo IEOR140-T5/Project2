@@ -50,7 +50,7 @@ public class Tracker {
 		pilot = thePilot;
 		pilot.setTravelSpeed(20);
 		pilot.setRotateSpeed(180);
-		pilot.setAcceleration(80);
+		pilot.setAcceleration(200);
 		this.leftEye = leftEye;
 		this.leftEye.setFloodlight(true);
 		this.rightEye = rightEye;
@@ -64,7 +64,7 @@ public class Tracker {
 	 * in 1 sec.<br>
 	 */
 	public void trackLine() {
-		int error = 0;// approximate offset from center of line
+		int error = 0; // approximate offset from center of line
 		int lval = leftEye.getLightValue();
 		int rval = rightEye.getLightValue();
 		error = CLDistance(lval, rval);
@@ -84,11 +84,11 @@ public class Tracker {
 
 			if (!atMarker) {
 				error = CLDistance(lval, rval);
-				pilot.steer(error * 1.05);
+				pilot.steer(error * 0.4);
 			} else {
 				Sound.playTone(1000, 100);
-				pilot.travel(7, true);
-				Delay.msDelay(500);
+				pilot.travel(11, false);
+				Delay.msDelay(400);
 			}
 		}
 
@@ -123,7 +123,7 @@ public class Tracker {
 	 * @param: multiples of 90
 	 */
 	public void turn(double direction) {
-		pilot.rotate(direction * 90);
+		pilot.rotate(direction * 110);
 	}
 
 	/**
@@ -134,8 +134,7 @@ public class Tracker {
 	public void sleepRobot(int ms) {
 		try {
 			Thread.sleep(ms);
-		} catch (InterruptedException e) {
-		}
+		} catch (InterruptedException e) {}
 	}
 
 	/**

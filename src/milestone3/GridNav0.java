@@ -133,6 +133,10 @@ public class GridNav0 {
 		}
 	}
 
+	/**
+	 * Main Test code for Milestone 3
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		float wheelDiameter = 5.38f;
 		float trackWidth = 11.2f;

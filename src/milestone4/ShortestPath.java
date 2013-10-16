@@ -9,12 +9,14 @@ import lejos.nxt.SensorPort;
 import lejos.util.ButtonCounter;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.nxt.UltrasonicSensor;
+import milestone3.GridNav0;
 
 public class ShortestPath {
 
 	/**
-	 * Instance variables that controls the robot's movement
+	 * Instance and static variables that controls the robot's movement
 	 */
+	public static final int MIN_DIST = 25;
 	private Tracker tracker;
 	private UltrasonicSensor usensor;
 	
@@ -60,6 +62,7 @@ public class ShortestPath {
 	 * Sets the destination using ButtonCounter
 	 */
 	private void setDestination() {
+		LCD.clear();
 		bc.count("Set Dest x, y");
 		grid.setDestination(bc.getLeftCount(), bc.getRightCount());
 		
@@ -90,7 +93,14 @@ public class ShortestPath {
 	 * @return true if node is blocked, false otherwise
 	 */
 	private boolean isBlocked() {            ///// NEED TO FIX
-		return false;
+		int distance = usensor.getDistance();
+		Node inFront = currentPosition.neighbor(heading);
+		if (distance > MIN_DIST || inFront == null || inFront.isBlocked()) {
+			return false;
+		}
+		inFront.blocked();
+		grid.recalc();
+		return true;
 	}
 	
 	/**
@@ -134,5 +144,22 @@ public class ShortestPath {
 			angle -= 4;
 		}
 		return angle;
+	}
+	
+	/**
+	 * Main Test code for Milestone 4
+	 * @param args - command line arguments
+	 */
+	public static void main(String[] args) {
+		float wheelDiameter = 5.38f;
+		float trackWidth = 11.2f;
+		DifferentialPilot pilot = new DifferentialPilot(wheelDiameter,
+				trackWidth, Motor.A, Motor.C);
+		LightSensor left = new LightSensor(SensorPort.S1);
+		LightSensor right = new LightSensor(SensorPort.S4);
+		UltrasonicSensor ussensor = new UltrasonicSensor(SensorPort.S3);
+		Tracker tracker = new Tracker(pilot, left, right);
+		ShortestPath robot = new ShortestPath(tracker, ussensor, 6, 8);
+		robot.go();
 	}
 }

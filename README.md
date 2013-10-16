@@ -24,9 +24,7 @@ in order for the robot for not detect the black market anymore.
 The robot will stop or turn when it reaches a specific numbers of black market detections.
                                          
 * **Class Responsibilities**: The class Tracker take responsiblity for the calibration setup and 
-basic control of the robot. For Milestone 2, the only method we implement is go() which is detailed above.
-  
-* **Explain how submethods work**: It helps the tracker and the robot to stop, delay, or turn at a desired angle.
+basic control of the robot. For Milestone 2, the only method we implement is go() which is detailed above.     
   
 **Most Interesting/Challenging Parts**: We found that the most interesting portion of the project 
 was implementing the light sensors. The light sensors, in our opinion, were the most intriguing 
@@ -88,6 +86,24 @@ Once newHeading returns the direction, we implement the correct turnRate.
 
 ## Milestone 4 Report
 
-**Task Analysis**: What does ShortestPath.java do?
+**Distance to block**: We measured and chose 25 as the threshold for the distance to the closest block. 
+If the value is below this threshold, we mark the node where the block is at as blocked, and recalculate 
+the distance.
 
-**Relationship between classes**: Describe Grid, Node, how the ShortestPath.java file used them, etc.
+**Task Analysis**: Our ShortestPath module first instantiates a grid of size 6x8 as in the last milestone. 
+We then calibrate the tracker, and ask the users to enter the desired destination.    
+
+From the starting point, we calculate the shortest path to the destination. Along the way, if any node 
+is detected by the ultrasonic sensor, we mark it as blocked, and recalculate the distance to the destination 
+without using that blocked node.
+
+If the destination is a blocked node, we set the destination to the current location, so that the robot 
+won't move at all. We also print out to the screen the locations of the blocked nodes, so that users can 
+have a better idea of where all the blocked nodes are.    
+
+While moving, the robot always looks for the best destination to turn into according to its pre-calculated 
+shortest path distance, which we wrote in the homework. We also update the heading to the current turn 
+direction, and we have a function to handle the cases where the heading falls out of range, i.e. [-2, 2].    
+
+**Difficulty**: We were having some problems with our tracker not staying on a straight line. Professor 
+Glassey suggested a fix by setting the acceleration to 200, and our robot performs much better since then.

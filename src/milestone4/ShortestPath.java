@@ -45,7 +45,7 @@ public class ShortestPath {
 	}
 
 	/**
-	 * carries out the mission
+	 * Carries out the mission
 	 */
 	public void go() {
 		tracker.calibrate();
@@ -89,10 +89,10 @@ public class ShortestPath {
 	}
 	
 	/**
-	 * Checks if any node ahead is blocked using the ultrasonic sensor
+	 * Finds any unblocked node by the ultrasonic sensor, and blocks them
 	 * @return true if node is blocked, false otherwise
 	 */
-	private boolean isBlocked() {            ///// NEED TO FIX
+	private boolean isBlocked() {
 		int distance = usensor.getDistance();
 		Node inFront = currentPosition.neighbor(heading);
 		if (distance > MIN_DIST || inFront == null || inFront.isBlocked()) {

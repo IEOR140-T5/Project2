@@ -84,7 +84,7 @@ Part of our algorithm is done in the method newHeading(). newHeading returns a d
 We chose to represent our coordinates as numbers between [0..3] inclusive. 
 Once newHeading returns the direction, we implement the correct turnRate. 
 
-## Milestone 4 Report
+## Milestone 4 Report (Shotest Path)
 
 **Distance to block**: We measured and chose 25 as the threshold for the distance to the closest block. 
 If the value is below this threshold, we mark the node where the block is at as blocked, and recalculate 

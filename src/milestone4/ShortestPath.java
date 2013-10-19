@@ -17,15 +17,15 @@ public class ShortestPath {
 	 * Instance and static variables that controls the robot's movement
 	 */
 	public static final int MIN_DIST = 25;
-	private Tracker tracker;
+	protected Tracker tracker;
 	private UltrasonicSensor usensor;
 	
 	/**
 	 * The robot's heading, current position, the grid, and a ButtonCounter
 	 * to set the grid's destination
 	 */
-	private int heading = 0;
-	private Node currentPosition;
+	protected int heading = 0;
+	protected Node currentPosition;
 	private Grid grid;
 	ButtonCounter bc = new ButtonCounter();
 	
@@ -61,7 +61,7 @@ public class ShortestPath {
 	/**
 	 * Sets the destination using ButtonCounter
 	 */
-	private void setDestination() {
+	public void setDestination() {
 		LCD.clear();
 		bc.count("Set Dest x, y");
 		grid.setDestination(bc.getLeftCount(), bc.getRightCount());
@@ -75,9 +75,26 @@ public class ShortestPath {
 	}
 	
 	/**
+	 * Sets the destination using input coordinates, for milestone 5
+	 * @param x - the new destination's x coord
+	 * @param y - the new destination's y coord
+	 */
+	protected void setDestinationCoord(int x, int y) {
+		LCD.clear();
+		grid.setDestination(x, y);
+		
+		// if destination is blocked, set destination to current location
+		if (grid.getDestination().isBlocked()) {
+			Sound.buzz();
+			grid.setDestination(currentPosition.getX(), currentPosition.getY());
+		}
+		grid.recalc(); // recalculate the shortest path distance to destination
+	}
+	
+	/**
 	 * Drives the tracker to the destination set on the grid
 	 */
-	private void toDestination() {
+	public void toDestination() {
 		grid.recalc();
 		while (currentPosition.getDistance() > 0) { // while we're not at destination
 			do {

@@ -1,6 +1,7 @@
 package milestone5;
 
 import lejos.nxt.*;
+import milestone4.*;
 import lejos.nxt.comm.*;
 import java.io.*;
 

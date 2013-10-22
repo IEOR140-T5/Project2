@@ -5,7 +5,6 @@ import lejos.nxt.Sound;
 import lejos.nxt.UltrasonicSensor;
 import milestone4.*;
 import tracker.*;
-
 import java.io.IOException;
 
 public class BTShortestPath extends ShortestPath {
@@ -44,11 +43,7 @@ public class BTShortestPath extends ShortestPath {
 	 */
 	public void updateObstaclePosition(Node obstacleNode) {
 		obstacleNode.blocked();
-		try {
-			btc.send(1, obstacleNode.getX(), obstacleNode.getY());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		btc.send(1, obstacleNode.getX(), obstacleNode.getY());
 	}
 
 	/**
@@ -57,11 +52,7 @@ public class BTShortestPath extends ShortestPath {
 	 */
 	public void updateRobotPosition(Node destination) {
 		currentPosition = destination;
-		try {
-			btc.send(0, currentPosition.getX(), currentPosition.getY());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		btc.send(0, currentPosition.getX(), currentPosition.getY());
 	}
 	
 	/**

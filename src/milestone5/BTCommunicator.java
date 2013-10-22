@@ -15,8 +15,8 @@ public class BTCommunicator {
 	BTConnection btc;
 	DataInputStream dataIn;
 	DataOutputStream dataOut;
-	private int x;
-	private int y;
+	private int x = 0;
+	private int y = 0;
 
 	/**
 	 * Creates a BTCommunicator object and connects it to the computer, then
@@ -24,10 +24,12 @@ public class BTCommunicator {
 	 */
 	public BTCommunicator() {
 		connect();
-		OutputStream os = btc.openOutputStream();
-		dataOut = new DataOutputStream(os);
-		InputStream is = btc.openInputStream();
-		dataIn = new DataInputStream(is);
+		try {
+			dataIn = btc.openDataInputStream();
+			dataOut = btc.openDataOutputStream();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println("Data stream opened.");
 	}
 
@@ -36,7 +38,7 @@ public class BTCommunicator {
 	 */
 	public void connect() {
 		LCD.drawString("connect waiting", 0, 0);
-		BTConnection btc = Bluetooth.waitForConnection();
+		btc = Bluetooth.waitForConnection();
 		LCD.clear();
 		LCD.drawString("connected", 0, 0);
 		LCD.refresh();
@@ -49,9 +51,13 @@ public class BTCommunicator {
 	public int[] receive() throws IOException {
 		System.out.println("waiting dest");
 		LCD.clear();
-		LCD.drawString("Read ", 0, 5);
-		x = dataIn.readInt();
-		y = dataIn.readInt();
+		LCD.drawString("Read ", 0, 5); 
+		try {
+			x = dataIn.readInt();
+			y = dataIn.readInt();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		LCD.drawInt(x, 4, 0, 6);
 		LCD.drawInt(y, 4, 8, 6);
 		int xy[] = { x, y };
@@ -67,14 +73,18 @@ public class BTCommunicator {
 	 * @param y
 	 * @throws IOException
 	 */
-	public void send(int header, int x, int y) throws IOException {
+	public void send(int header, int x, int y) {
+		try {
+			dataOut.writeInt(header);
+			dataOut.writeInt(x);
+			dataOut.writeInt(y);
+			dataOut.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		LCD.drawString("SEND " + header, 0, 5);
 		LCD.drawInt(x, 4, 0, 6);
 		LCD.drawInt(y, 4, 8, 6);
-		dataOut.writeInt(header);
-		dataOut.writeInt(x);
-		dataOut.writeInt(y);
-		dataOut.flush();
 	}
 
 	/**

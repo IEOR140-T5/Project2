@@ -51,9 +51,11 @@ public class BTCommunicator {
 	public int[] receive() throws IOException {
 		System.out.println("waiting dest");
 		LCD.clear();
-		LCD.drawString("Read ", 0, 5); 
+		LCD.drawString("Input destination on PC", 0, 5);
 		try {
+			LCD.drawInt(x, 4, 0, 6);
 			x = dataIn.readInt();
+			LCD.drawInt(x, 4, 0, 6);
 			y = dataIn.readInt();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,7 +78,9 @@ public class BTCommunicator {
 	public void send(int header, int x, int y) {
 		try {
 			dataOut.writeInt(header);
+			dataOut.flush();
 			dataOut.writeInt(x);
+			dataOut.flush();
 			dataOut.writeInt(y);
 			dataOut.flush();
 		} catch (Exception e) {

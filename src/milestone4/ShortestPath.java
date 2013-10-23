@@ -18,7 +18,7 @@ public class ShortestPath {
 	 */
 	public static final int MIN_DIST = 25;
 	protected Tracker tracker;
-	private UltrasonicSensor usensor;
+	protected UltrasonicSensor usensor;
 	
 	/**
 	 * The robot's heading, current position, the grid, and a ButtonCounter
@@ -26,7 +26,7 @@ public class ShortestPath {
 	 */
 	protected int heading = 0;
 	protected Node currentPosition;
-	private Grid grid;
+	protected Grid grid;
 	ButtonCounter bc = new ButtonCounter();
 	
 	/**
@@ -109,7 +109,7 @@ public class ShortestPath {
 	 * Finds any unblocked node by the ultrasonic sensor, and blocks them
 	 * @return true if node is blocked, false otherwise
 	 */
-	private boolean isBlocked() {
+	protected boolean isBlocked() {
 		int distance = usensor.getDistance();
 		Node inFront = currentPosition.neighbor(heading);
 		if (distance > MIN_DIST || inFront == null || inFront.isBlocked()) {
@@ -143,7 +143,7 @@ public class ShortestPath {
 	/**
 	 * Turns to the best direction found above, and updates the heading
 	 */
-	private void turnToBestDirection() {
+	protected void turnToBestDirection() {
 		int newHeading = bestDirection();
 		tracker.turn(correctAngle(newHeading - heading));
 		heading = newHeading;

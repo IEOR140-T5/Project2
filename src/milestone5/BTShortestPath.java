@@ -84,6 +84,7 @@ public class BTShortestPath extends ShortestPath {
 			} while (isBlocked()); // try finding the best direction while we're still blocked
 			tracker.trackLine();
 			currentPosition = currentPosition.neighbor(heading);
+			updateRobotPosition(currentPosition);
 		}
 	}
 	
@@ -96,7 +97,6 @@ public class BTShortestPath extends ShortestPath {
 		while (true) {
 			updateDestination();
 			toDestination();
-			updateRobotPosition(grid.getDestination());
 			Sound.beepSequence();
 			LCD.drawString("(" + currentPosition.getX() + "," + currentPosition.getY() + ")", 0, 0);
 		}
